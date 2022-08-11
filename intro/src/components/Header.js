@@ -3,11 +3,11 @@ import logo from '../img/header-logo.png';
 import {nanoid} from 'nanoid';
 import {NavLink, Navigate} from'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {goSearchCatalog, visibleSearchCatalog, catalogRender} from '../redux/actionCreators';
+import {goSearchCatalog, visibleSearchCatalog, catalogRender, changevalueSearch, changeNeedRequest, searchingInCatalog} from '../redux/actionCreators';
 import banner from '../img/banner.jpg';
 
 function Header() {
-  const headerSearch= useSelector(state=>state.products.headerSearch);
+  // const headerSearch= useSelector(state=>state.products.headerSearch);
   const storeProducts = useSelector(state=>state.products)
   const dispatch = useDispatch();  
   const links = [
@@ -25,28 +25,46 @@ function Header() {
   const latestHeaderSearch = useRef('');
   latestHeaderSearch.current = useSelector(state=>state.products.headerSearch)// (видимость инпута поиска в шапке сайта) разрешение на переход в поиск каталога из поиска шапки
   useEffect(() => {
-    setCatalogRender(storeProducts.catalogRender) 
-  }, [headerSearch, storeProducts.catalogRender])
-
-
-  const activeLink = (link, e) => {
-    setSelect(link);
+    setCatalogRender(storeProducts.catalogRender)
+    if(window.location.pathname !== '/catalog.html') {
+    dispatch(changevalueSearch(''));  
     }
+  }, [dispatch, storeProducts.catalogRender])
+  
+  const activeLink = (link, e) => {
+    console.log('переход по навигации');
+    dispatch(changevalueSearch(''));
+    dispatch(changeNeedRequest(true));
+    setSelect(link);
+    if(link !== '/catalog.html') {
+    dispatch(catalogRender(false));
+    dispatch(visibleSearchCatalog('none'))  
+    }}
+
+  
 
   const openSearch = () => {
     if(invisible === 'invisible') {setInvisible('')} // если поиск не виден, показать его
          else if(searchForm.trim() !== '') { // если в поиске есть значение
             console.log('поиск');
+            dispatch(changevalueSearch(searchForm)); //передает в него значение
+            setInvisible('invisible'); //скрывает поиск в шапке  
+            setSearch(''); // очищает значение поиска     
+            if(window.location.pathname === '/catalog.html') {
+              dispatch(changeNeedRequest(true));
+            }
             dispatch(goSearchCatalog(true)); // меняет headerSearch, разрешает переход на страницу каталога
-            dispatch(visibleSearchCatalog('block', searchForm)) // показывает поиск в каталоге и передает в него значение
-            setInvisible('invisible'); //скрывает поиск в шапке
-            setSearch(''); // очищает значение поиска
+            dispatch(visibleSearchCatalog('block')) // показывает поиск в каталоге  
+                 
             } else setInvisible('invisible')// иначе скрывает поле
     } 
-  console.log(catalogRenderState);
+  // console.log(catalogRenderState);
+  
+  // console.log(latestHeaderSearch.current);
   if(latestHeaderSearch.current && catalogRenderState === false) { // если разрешён переход в каталог и он не отрисован
     console.log("переход");
     dispatch(catalogRender(true));// каталог отрисован
+    dispatch(changeNeedRequest(true));
     return <Navigate to="/catalog.html"/>
   } 
   const menu = links.map((element) =>

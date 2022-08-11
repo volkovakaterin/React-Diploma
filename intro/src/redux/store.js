@@ -2,6 +2,7 @@ import {combineReducers, legacy_createStore} from "redux";
 import categoriesReducer from "./categoriesReducer";
 import productsReducer from "./productsReducer";
 import topSalesReducer from "./topSalesReducer";
+import productCardReducer from './productCardReducer';
 
 function configureStore(state) {
     return legacy_createStore(
@@ -9,6 +10,7 @@ function configureStore(state) {
            topSales: topSalesReducer,
            categories: categoriesReducer,
            products: productsReducer,
+           card: productCardReducer
          // ....
          // ....   
         })
