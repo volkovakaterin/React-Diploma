@@ -1,15 +1,9 @@
 import {
-    FETCH_CARD_FAILURE,
-    FETCH_CARD_REQUEST,
-    FETCH_CARD_SUCCESS,
-    CHANGE_ID_CARD
+    
   } from './actions'
   
 const initialState = {
-    items: '',
-    loading: false,
-    error: null,
-    id: '',
+    
   };
   
 export default function productCardReducer (state = initialState, action) {

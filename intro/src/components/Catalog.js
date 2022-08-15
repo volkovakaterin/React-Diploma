@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { fetchCategories, fetchProducts, goSearchCatalog, fetchLoadMore, searchingInCatalog, visibleSearchCatalog, changeNeedRequest, changeIdCard } from '../redux/actionCreators';
+import { fetchCategories, fetchProducts, goSearchCatalog, fetchLoadMore, searchingInCatalog, visibleSearchCatalog, changeNeedRequest, changeIdCard, fetchProductCard } from '../redux/actionCreators';
 import { useSelector, useDispatch } from 'react-redux';
 import {NavLink} from'react-router-dom';
 
@@ -60,6 +60,11 @@ function Catalog() {
     searchingInCatalog(dispatch, searchForm, select);
   }
 
+  const goCardProduct = (id, e) => {
+    dispatch(changeIdCard(id));
+    fetchProductCard(dispatch, id)
+  }
+
   if (typeof itemsCategories === 'object') {
     categories = itemsCategories.map(item => (
       <li key={item.id} className="nav-item">
@@ -77,7 +82,7 @@ function Catalog() {
           <div className="card-body">
             <p className="card-text">{item.title}</p>
             <p className="card-text">{item.price}</p>
-            <NavLink className="btn btn-outline-primary" to={`/catalog/:${item.id}.html`} onClick={(e) => changeIdCard(item.id, e)}>Заказать</NavLink>   
+            <NavLink className="btn btn-outline-primary" to={`/catalog/:${item.id}.html`} onClick={(e) => goCardProduct(item.id, e)}>Заказать</NavLink>   
           </div>
         </div>
       </div>

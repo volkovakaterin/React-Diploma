@@ -8,6 +8,7 @@ import Catalog from './components/Catalog';
 import About from './components/About';
 import Contacts from './components/Contacts';
 import ProductCard from './components/ProductCard';
+import Cart from './components/Cart';
 import { useSelector} from 'react-redux';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/about.html" element={<About/>} />
       <Route path="/contacts.html" element={<Contacts/>} />  
       <Route path={`/catalog/:${idCard}.html`} element={<ProductCard/>}/>
+      <Route path={`/cart.html`} element={<Cart/>}/>
     </Routes>
     <Footer/>
     </> 

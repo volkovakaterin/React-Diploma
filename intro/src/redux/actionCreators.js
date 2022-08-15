@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_SUCCESS, FETCH_CATEGORIES_FAILURE, FETCH_CATEGORIES_SUCCESS, FETCH_CATEGORIES_REQUEST, FETCH_SALES_FAILURE, FETCH_SALES_SUCCESS, FETCH_SALES_REQUEST, GO_SEARCH_CATALOG, VISIBLE_SEARCH_CATALOG, СATALOG_RENDER, FETCH_LOADMORE_REQUEST, FETCH_LOADMORE_FAILURE, FETCH_LOADMORE_SUCCESS, SEARCHING_CATALOG_REQUEST, SEARCHING_CATALOG_FAILURE, SEARCHING_CATALOG_SUCCESS, SHOW_BTN_MORE, CHANGE_SEARCH_CATALOG, CHANGE_NEED_REQUEST, CHANGE_ID_CARD } from "./actions";
+import { FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_SUCCESS, FETCH_CATEGORIES_FAILURE, FETCH_CATEGORIES_SUCCESS, FETCH_CATEGORIES_REQUEST, FETCH_SALES_FAILURE, FETCH_SALES_SUCCESS, FETCH_SALES_REQUEST, GO_SEARCH_CATALOG, VISIBLE_SEARCH_CATALOG, СATALOG_RENDER, FETCH_LOADMORE_REQUEST, FETCH_LOADMORE_FAILURE, FETCH_LOADMORE_SUCCESS, SEARCHING_CATALOG_REQUEST, SEARCHING_CATALOG_FAILURE, SEARCHING_CATALOG_SUCCESS, SHOW_BTN_MORE, CHANGE_SEARCH_CATALOG, CHANGE_NEED_REQUEST, CHANGE_ID_CARD, FETCH_CARD_REQUEST, FETCH_CARD_SUCCESS, FETCH_CARD_FAILURE } from "./actions";
 
 export const fetchProductsRequest = () => ({
   type: FETCH_PRODUCTS_REQUEST,
@@ -236,9 +236,43 @@ export const changeNeedRequest = needRequest => ({
   }
 })
 
-export const changeIdCard = (id, e)  => ({
+export const changeIdCard = (id)  => ({
   type: CHANGE_ID_CARD,
   payload: {
     id
   }
 })
+
+export const fetchCardRequest = () => ({
+  type: FETCH_CARD_REQUEST,
+});
+
+export const fetchCardFailure = error => ({
+  type: FETCH_CARD_FAILURE,
+  payload: {
+    error,
+  },
+});
+
+export const fetchCardSuccess = items => ({
+  type: FETCH_CARD_SUCCESS,
+  payload: {
+    items,
+  },
+});
+
+export const fetchProductCard = async (dispatch, id) => {
+  console.log('запрос карточки');
+  dispatch(fetchCardRequest());
+  try {
+    const response = await fetch(`http://localhost:7070/api/items/${id}`)
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const data = await response.json();
+    dispatch(fetchCardSuccess(data));
+    console.log(data);
+  } catch (e) {
+    dispatch(fetchCardFailure(e.message));
+  }
+}

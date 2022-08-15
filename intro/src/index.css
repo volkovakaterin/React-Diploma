@@ -382,3 +382,105 @@ h2, .h2 {
   background-color: #727e86;
   border-color: #727e86;
 }
+
+.title-product-card {
+  font-size: 30px;
+  text-align: center;
+}
+
+.content-product-card {
+  display: flex;
+  margin-top: 10px;
+}
+
+.image-product-card {
+  width: 50%;
+}
+
+.card-image {
+  max-width: 100%;
+  max-height: 600px;
+}
+
+.description-product-card {
+  width: 50%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, tbody, tr {
+  width: 100%;
+}
+
+th, td {
+  width: 50%;
+  font-size: 20px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.sizes-container{
+  margin-top: 10px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.size-btn {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.size-btn-select {
+  display: inline-block;
+  background-color: #727e86;
+  border: 5px solid #727e86;
+  border-radius: 45%;
+}
+
+.block-inc-dec {
+  display: flex;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+  padding-left: 350px;
+}
+
+.box-inc-dec {
+  /* width: 105px; */
+  margin-left: 20px;
+  display: flex;
+  font-family: "GilroyBlack";
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.dec, .inc {
+  width: 40px;
+  background-color: #727e86;
+  cursor: pointer;
+}
+
+.amount {
+  width: 40px;
+}
+
+.btn-add-cart {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  width: 100%;
+  height: 40px;
+  background-color: #c73b31;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.add-cart-none {
+  display: none;
+}
